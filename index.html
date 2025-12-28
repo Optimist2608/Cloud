@@ -11,9 +11,9 @@
 <body>
     <aside class="aside">
         <picture class="avatar">
-            <source srcset=".avif" type="image/avif">
-            <source srcset=".webp" type="image/webp">
-            <img src=".png" alt="avatar" class="avatar_pic">
+            <source srcset="./img/avatar/avatar.avif" type="image/avif">
+            <source srcset="./img/avatar/avatar.webp" type="image/webp">
+            <img src="./img/avatar/avatar.png" alt="avatar" class="avatar_pic">
         </picture>
         <nav class="menu">
             <button class="btn">
@@ -74,6 +74,21 @@
         <form action="">
             <input type="search" placeholder="Search" id="search">
         </form>
+        <div class="block">
+            <h2 class="title">Files</h2>
+            <div class="cards">
+                <div class="card">
+                    <picture>
+                        <source srcset=".avif" type="image/avif">
+                        <source srcset=".webp" type="image/webp">
+                        <img src=".png" alt="">
+                    </picture>
+                    <h3 class="card_name">test.img</h3>
+                    <p class="card_format">PNG</p>
+                    <p class="card_size">13mb</p>
+                </div>
+            </div>
+        </div>
     </main>
     <form action="">
         <label class="custum-file-upload" for="file">

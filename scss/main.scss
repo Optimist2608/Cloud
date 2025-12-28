@@ -1,1 +1,247 @@
 @use 'importer' as *;
+// 1. Переменные для удобства (цвета, отступы)
+$bg-body: #F5F6FA;
+$bg-white: #FFFFFF;
+$text-main: #333;
+$text-gray: rgba(75, 85, 99, 1);
+$border-color: #E0E0E0;
+$primary-color: #4B7BEC; // Синий для акцентов
+$radius: 12px;
+
+// 2. Сброс базовых стилей
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: $bg-body;
+  color: $text-main;
+  height: 100vh;
+  // Используем Grid для разметки: Сайдбар (250px) | Контент (все остальное)
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: 100vh;
+  overflow: hidden;
+}
+
+// 3. Стили Сайдбара (Aside) - СЛЕВА
+.aside {
+  background-color: $bg-white;
+  border-right: 1px solid $border-color;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: auto;
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto; // Центрируем аватар
+    background-color: #eee; // Заглушка, если нет картинки
+
+    .avatar_pic {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  // Общие стили для навигации
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 15px;
+      background: transparent;
+      border: none;
+      border-radius: $radius;
+      cursor: pointer;
+      font-size: 16px;
+      color: $text-gray;
+      transition: background 0.3s, color 0.3s;
+      text-align: left;
+
+      &:hover {
+        background-color: lighten($primary-color, 35%);
+        color: $primary-color;
+      }
+
+      .menu_pic {
+        width: 24px;
+        height: 24px;
+        
+        .menu_pic_img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+      }
+    }
+  }
+  
+  // Отделяем настройки вниз (flex-grow не нужен, просто margin-top auto)
+  .settings {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid $border-color;
+  }
+}
+
+// 4. Стили Основного контента (Main) - ПО СЕРЕДИНЕ
+.main {
+  padding: 2rem;
+  overflow-y: auto; // Чтобы скроллился только контент
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  // Поиск
+  form {
+    #search {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px 20px;
+      border-radius: 30px;
+      border: 1px solid transparent;
+      background-color: $bg-white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      outline: none;
+      font-size: 16px;
+      transition: 0.3s;
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 4px 20px rgba(75, 123, 236, 0.2);
+      }
+    }
+  }
+
+  .block {
+    .title {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: $text-main;
+    }
+
+    .cards {
+      display: grid;
+      // Адаптивная сетка карточек
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+
+      .card {
+        background: $bg-white;
+        border-radius: $radius;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        transition: transform 0.2s;
+        cursor: pointer;
+
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        // Заглушка под картинки в карточке
+        img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .card_name {
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+        .card_format {
+          font-size: 12px;
+          background: #eee;
+          padding: 4px 8px;
+          border-radius: 4px;
+          color: $text-gray;
+        }
+
+        .card_size {
+            font-size: 14px;
+            color: lighten($text-gray, 10%);
+        }
+      }
+    }
+  }
+}
+
+// 5. Стили формы загрузки (Ваш код, адаптированный под SCSS)
+// Так как форма лежит в body, позиционируем её абсолютно или фиксированно,
+// чтобы она была поверх контента (например, справа снизу)
+body > form {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+}
+
+.custum-file-upload {
+    height: 200px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Исправлено: align-items: space-between не существует
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    border: 2px dashed #cacaca;
+    background-color: #F0F6FD;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 48px 35px -48px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s;
+
+    &:hover {
+        border-color: $primary-color;
+        background-color: lighten(#F0F6FD, 2%);
+    }
+
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        svg {
+            height: 80px;
+            fill: rgba(75, 85, 99, 1);
+        }
+    }
+
+    .text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        span {
+            font-weight: 400;
+            color: rgba(75, 85, 99, 1);
+        }
+    }
+
+    input {
+        display: none;
+    }
+}
